@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Tailwind v4 Dark Mode Configuration */
+
+/* Define the dark variant to work with class-based dark mode */
+@variant dark (.dark &);
+
+/* Optional: Add some theme customizations */
+@theme {
+  --font-family-sans: system-ui, -apple-system, sans-serif;
+}
