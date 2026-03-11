@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../services/api";
 import ThemeToggle from "../components/ThemeToggle";
+import { useToast } from "../contexts/ToastContext";
 
 const Register = () => {
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const [isVisible, setIsVisible] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -36,11 +38,24 @@ const Register = () => {
 
     try {
       await API.post("/auth/register", formData);
+
+      // Show success toast
+      showToast('Account created successfully! Please login.', 'success');
+
       navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed");
-    } finally {
       setLoading(false);
+
+      // Extract error message from response
+      const errorMessage = err.response?.data?.error || 
+                          err.response?.data?.message || 
+                          "Registration failed. Please try again.";
+
+      // Show error in toast
+      showToast(errorMessage, 'error');
+
+      // Also set error state for inline display
+      setError(errorMessage);
     }
   };
 
@@ -179,78 +194,77 @@ const Register = () => {
               </div>
 
               {/* Password Input */}
-<div className="space-y-2">
-  <label
-    htmlFor="password"
-    className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
-  >
-    Password
-  </label>
+              <div className="space-y-2">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+                >
+                  Password
+                </label>
 
-  <div className="relative">
-    <input
-      type={showPassword ? "text" : "password"}
-      id="password"
-      name="password"
-      placeholder="••••••••"
-      value={formData.password}
-      onChange={handleChange}
-      className="w-full px-4 py-3.5 pr-12 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 dark:focus:ring-neutral-100/10 focus:border-neutral-900 dark:focus:border-neutral-100 transition-all duration-300 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-600"
-      required
-    />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    name="password"
+                    placeholder="••••••••"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3.5 pr-12 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 dark:focus:ring-neutral-100/10 focus:border-neutral-900 dark:focus:border-neutral-100 transition-all duration-300 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-600"
+                    required
+                  />
 
-    <button
-      type="button"
-      onClick={() => setShowPassword(!showPassword)}
-      className="absolute inset-y-0 right-3 flex items-center text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-      aria-label={showPassword ? "Hide password" : "Show password"}
-    >
-      {showPassword ? (
-        /* Eye Off */
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-10 0-1.197.21-2.345.594-3.41M6.42 6.42A9.956 9.956 0 0112 5c5.523 0 10 4.477 10 10a9.96 9.96 0 01-4.293 8.21M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-          />
-        </svg>
-      ) : (
-        /* Eye */
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-          />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-          />
-        </svg>
-      )}
-      
-    </button>
-  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-3 flex items-center text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? (
+                      /* Eye Off */
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-10 0-1.197.21-2.345.594-3.41M6.42 6.42A9.956 9.956 0 0112 5c5.523 0 10 4.477 10 10a9.96 9.96 0 01-4.293 8.21M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                      </svg>
+                    ) : (
+                      /* Eye */
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
 
-  <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
-    Must be at least 8 characters
-  </p>
-</div>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
+                  Must be at least 8 characters
+                </p>
+              </div>
 
               {/* Submit Button */}
               <button
@@ -318,25 +332,24 @@ const Register = () => {
           </div>
 
           {/* Additional Info */}
-          {/* Additional Info */}
-<div className="mt-8 text-center">
-  <p className="text-sm text-neutral-400 dark:text-neutral-600">
-    By creating an account, you agree to our{" "}
-    <Link 
-      to="/terms" 
-      className="hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors underline"
-    >
-      Terms
-    </Link>{" "}
-    and{" "}
-    <Link 
-      to="/privacy" 
-      className="hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors underline"
-    >
-      Privacy Policy
-    </Link>
-  </p>
-</div>
+          <div className="mt-8 text-center">
+            <p className="text-sm text-neutral-400 dark:text-neutral-600">
+              By creating an account, you agree to our{" "}
+              <Link 
+                to="/terms" 
+                className="hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors underline"
+              >
+                Terms
+              </Link>{" "}
+              and{" "}
+              <Link 
+                to="/privacy" 
+                className="hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors underline"
+              >
+                Privacy Policy
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
 

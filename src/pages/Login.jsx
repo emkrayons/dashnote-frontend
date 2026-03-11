@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../services/api";
 import ThemeToggle from "../components/ThemeToggle";
+import { useToast } from "../contexts/ToastContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const [isVisible, setIsVisible] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -36,17 +38,29 @@ const Login = () => {
     try {
       const res = await API.post("/auth/login", formData);
 
-      // store token
+      // Store token
       localStorage.setItem("token", res.data.token);
 
-      // optional: store user
+      // Store user
       localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      // Show success toast
+      showToast('Login successful!', 'success');
 
       navigate("/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
-    } finally {
       setLoading(false);
+
+      // Extract error message from response
+      const errorMessage = err.response?.data?.error || 
+                          err.response?.data?.message || 
+                          "Login failed. Please try again.";
+
+      // Show error in toast
+      showToast(errorMessage, 'error');
+
+      // Also set error state for inline display
+      setError(errorMessage);
     }
   };
 
@@ -309,25 +323,24 @@ const Login = () => {
           </div>
 
           {/* Additional Info */}
-          {/* Additional Info */}
-<div className="mt-8 text-center">
-  <p className="text-sm text-neutral-400 dark:text-neutral-600">
-    By signing in, you agree to our{" "}
-    <Link 
-      to="/terms" 
-      className="hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors underline"
-    >
-      Terms
-    </Link>{" "}
-    and{" "}
-    <Link 
-      to="/privacy" 
-      className="hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors underline"
-    >
-      Privacy Policy
-    </Link>
-  </p>
-</div>
+          <div className="mt-8 text-center">
+            <p className="text-sm text-neutral-400 dark:text-neutral-600">
+              By signing in, you agree to our{" "}
+              <Link 
+                to="/terms" 
+                className="hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors underline"
+              >
+                Terms
+              </Link>{" "}
+              and{" "}
+              <Link 
+                to="/privacy" 
+                className="hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors underline"
+              >
+                Privacy Policy
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
 
