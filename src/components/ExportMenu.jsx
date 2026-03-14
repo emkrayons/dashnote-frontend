@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import jsPDF from "jspdf";
+import { logExport } from "../utils/analytics"; // ⭐ ADD THIS IMPORT
 
 const ExportMenu = ({ note, notes }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,6 +82,9 @@ const ExportMenu = ({ note, notes }) => {
         doc.text(`Created: ${new Date(singleNote.createdAt).toLocaleDateString()}`, margin, y);
         doc.text(`Updated: ${new Date(singleNote.updatedAt).toLocaleDateString()}`, margin, y + 6);
         doc.save(`${singleNote.title}.pdf`);
+        
+        // ⭐ TRACK SINGLE NOTE PDF EXPORT
+        logExport('PDF - Single Note');
       } else if (notes && notes.length > 0) {
         notes.forEach((n, index) => {
           if (index > 0) { doc.addPage(); y = margin; }
@@ -109,6 +113,9 @@ const ExportMenu = ({ note, notes }) => {
           doc.text(`Created: ${new Date(n.createdAt).toLocaleDateString()} | Updated: ${new Date(n.updatedAt).toLocaleDateString()}`, margin, y);
         });
         doc.save(`dashnote-export-${Date.now()}.pdf`);
+        
+        // ⭐ TRACK ALL NOTES PDF EXPORT
+        logExport(`PDF - All Notes (${notes.length} notes)`);
       }
       setIsOpen(false);
     } catch (error) {
@@ -122,12 +129,18 @@ const ExportMenu = ({ note, notes }) => {
       const cleanContent = cleanMarkdown(singleNote.content);
       const text = `${singleNote.title}\n${'='.repeat(singleNote.title.length)}\n\n${cleanContent}\n\n---\nCreated: ${new Date(singleNote.createdAt).toLocaleDateString()}\nUpdated: ${new Date(singleNote.updatedAt).toLocaleDateString()}`;
       downloadFile(text, `${singleNote.title}.txt`, 'text/plain');
+      
+      // ⭐ TRACK SINGLE NOTE TXT EXPORT
+      logExport('TXT - Single Note');
     } else if (notes && notes.length > 0) {
       const text = notes.map(n => {
         const cleanContent = cleanMarkdown(n.content);
         return `${n.title}\n${'='.repeat(n.title.length)}\n\n${cleanContent}\n\n---\nCreated: ${new Date(n.createdAt).toLocaleDateString()} | Updated: ${new Date(n.updatedAt).toLocaleDateString()}\n\n\n`;
       }).join('\n');
       downloadFile(text, `dashnote-export-${Date.now()}.txt`, 'text/plain');
+      
+      // ⭐ TRACK ALL NOTES TXT EXPORT
+      logExport(`TXT - All Notes (${notes.length} notes)`);
     }
     setIsOpen(false);
   };

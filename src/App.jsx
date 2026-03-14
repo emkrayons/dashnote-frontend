@@ -1,6 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ToastProvider } from "./contexts/ToastContext";
 
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { initGA, logPageView } from './utils/analytics';
+
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -12,7 +16,21 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 
 
+
 function App() {
+
+  const location = useLocation();
+
+  // Initialize Google Analytics on app load
+  useEffect(() => {
+    initGA();
+  }, []);
+
+  // Track page views on route change
+  useEffect(() => {
+    logPageView(location.pathname + location.search);
+  }, [location]);
+
   return (
   <ToastProvider>
       <BrowserRouter>

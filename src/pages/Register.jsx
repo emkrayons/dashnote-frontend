@@ -4,6 +4,8 @@ import API from "../services/api";
 import ThemeToggle from "../components/ThemeToggle";
 import { useToast } from "../contexts/ToastContext";
 
+import { logSignup } from "../utils/analytics";
+
 const Register = () => {
   const navigate = useNavigate();
   const { showToast } = useToast();
@@ -38,6 +40,8 @@ const Register = () => {
 
     try {
       await API.post("/auth/register", formData);
+
+      logSignup(); // ⭐ Track signup
 
       // Show success toast
       showToast('Account created successfully! Please login.', 'success');

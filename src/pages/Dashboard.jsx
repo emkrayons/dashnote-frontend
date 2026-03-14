@@ -12,6 +12,8 @@ import useKeyboardShortcuts, { KeyboardShortcutsHelp } from "../utils/useKeyboar
 import useAutoSave, { AutoSaveIndicator } from "../utils/useAutoSave";
 import { useToast } from "../contexts/ToastContext";
 
+import { logNoteCreated, logExport } from "../utils/analytics";
+
 const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
@@ -248,7 +250,8 @@ const Dashboard = () => {
         setEditingId(null);
       } else {
         await API.post("/api/notes", noteData);
-        showToast('Note created successfully!', 'success'); 
+        showToast('Note created successfully!', 'success');
+        logNoteCreated(); // ⭐ Track note creation 
       }
 
       setTitle("");

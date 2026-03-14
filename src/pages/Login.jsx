@@ -4,6 +4,8 @@ import API from "../services/api";
 import ThemeToggle from "../components/ThemeToggle";
 import { useToast } from "../contexts/ToastContext";
 
+import { logLogin } from "../utils/analytics";
+
 const Login = () => {
   const navigate = useNavigate();
   const { showToast } = useToast();
@@ -37,6 +39,8 @@ const Login = () => {
 
     try {
       const res = await API.post("/auth/login", formData);
+
+      logLogin(); // ⭐ Track login
 
       // Store token
       localStorage.setItem("token", res.data.token);
