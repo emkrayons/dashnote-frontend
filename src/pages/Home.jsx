@@ -294,7 +294,7 @@ const Home = () => {
       >
         <p>© {new Date().getFullYear()} Dashnote. All rights reserved.</p>
         <p className="mt-1">
-          Built by{" "}
+          Developed by{" "}
           <a
             href="https://emkrayon.netlify.app/"
             target="_blank"
