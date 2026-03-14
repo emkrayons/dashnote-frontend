@@ -47,9 +47,7 @@ const Home = () => {
               <h1 className="text-lg md:text-2xl font-light tracking-tight text-neutral-900 dark:text-neutral-100">
                 Dashnote
               </h1>
-              <span className="hidden sm:inline text-xs px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700">
-                by emkrayon
-              </span>
+            
             </div>
           </div>
 
@@ -298,10 +296,10 @@ const Home = () => {
         <p className="mt-1">
           Built by{" "}
           <a
-            href="https://emkrayon.com"
+            href="https://emkrayon.netlify.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors font-medium"
+            className="text-neutral-600 dark:text-neutral-200 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors font-medium"
           >
             emkrayon
           </a>
