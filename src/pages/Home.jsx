@@ -14,9 +14,9 @@ const Home = () => {
     <div className="min-h-screen bg-[#fafaf9] dark:bg-[#0a0a0a] flex flex-col relative overflow-hidden transition-colors duration-300">
       {/* Animated gradient background orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-linear-to-br from-blue-400/20 to-purple-400/20 dark:from-blue-600/10 dark:to-purple-600/10 rounded-full blur-3xl animate-blob"></div>
-        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-linear-to-br from-purple-400/20 to-pink-400/20 dark:from-purple-600/10 dark:to-pink-600/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-linear-to-br from-pink-400/20 to-orange-400/20 dark:from-pink-600/10 dark:to-orange-600/10 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-400/20 dark:from-blue-600/10 dark:to-purple-600/10 rounded-full blur-3xl animate-blob"></div>
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-gradient-to-br from-purple-400/20 to-pink-400/20 dark:from-purple-600/10 dark:to-pink-600/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-gradient-to-br from-pink-400/20 to-orange-400/20 dark:from-pink-600/10 dark:to-orange-600/10 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
       </div>
 
       {/* Subtle background texture */}
@@ -67,7 +67,7 @@ const Home = () => {
               transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
-            <div className="w-7 h-7 md:w-8 md:h-8 bg-linear-to-br from-neutral-800 to-neutral-600 dark:from-neutral-200 dark:to-neutral-400 rounded-lg flex items-center justify-center transform group-hover:rotate-180 transition-transform duration-700 shrink-0 shadow-lg">
+            <div className="w-7 h-7 md:w-8 md:h-8 bg-gradient-to-br from-neutral-800 to-neutral-600 dark:from-neutral-200 dark:to-neutral-400 rounded-lg flex items-center justify-center transform group-hover:rotate-180 transition-transform duration-700 shrink-0 shadow-lg">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="md:w-4 md:h-4">
                 <path d="M8 2L8 14M2 8L14 8" stroke="white" className="dark:stroke-neutral-900" strokeWidth="2" strokeLinecap="round"/>
               </svg>
@@ -122,13 +122,13 @@ const Home = () => {
                   Your thoughts.
                 </h2>
                 <h2 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight leading-[1.1]">
-                  <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 italic font-serif">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 italic font-serif">
                     Organized.
                   </span>{" "}
-                  <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-600 via-pink-600 to-orange-600 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 italic font-serif">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 italic font-serif">
                     Secure.
                   </span>{" "}
-                  <span className="text-transparent bg-clip-text bg-linear-to-r from-pink-600 via-orange-600 to-yellow-600 dark:from-pink-400 dark:via-orange-400 dark:to-yellow-400 italic font-serif">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-orange-600 to-yellow-600 dark:from-pink-400 dark:via-orange-400 dark:to-yellow-400 italic font-serif">
                     Simple.
                   </span>
                 </h2>
@@ -165,7 +165,7 @@ const Home = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
                   </span>
-                  <div className="absolute inset-0 bg-linear-to-r from-neutral-700 to-neutral-900 dark:from-neutral-200 dark:to-neutral-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-neutral-700 to-neutral-900 dark:from-neutral-200 dark:to-neutral-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
 
                 <button
@@ -331,7 +331,7 @@ const Home = () => {
             }}
           >
             <div className="group p-6 md:p-8 rounded-2xl bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm border border-neutral-200/50 dark:border-neutral-800/50 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-500 hover:shadow-xl hover:scale-105">
-              <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-500 to-purple-500 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-lg">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                 </svg>
@@ -341,7 +341,7 @@ const Home = () => {
             </div>
 
             <div className="group p-6 md:p-8 rounded-2xl bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm border border-neutral-200/50 dark:border-neutral-800/50 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-500 hover:shadow-xl hover:scale-105">
-              <div className="w-12 h-12 rounded-xl bg-linear-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-lg">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
@@ -351,7 +351,7 @@ const Home = () => {
             </div>
 
             <div className="group p-6 md:p-8 rounded-2xl bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm border border-neutral-200/50 dark:border-neutral-800/50 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-500 hover:shadow-xl hover:scale-105">
-              <div className="w-12 h-12 rounded-xl bg-linear-to-br from-pink-500 to-orange-500 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-orange-500 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-lg">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
@@ -372,7 +372,7 @@ const Home = () => {
         }}
       >
         <p>© {new Date().getFullYear()} Dashnote. All rights reserved.</p>
-        <p className="mt-1">Designed and Developed by <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-500 to-purple-500">emkrayon</span></p>
+        <p className="mt-1">Designed and Developed by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">emkrayon</span></p>
       </footer>
     </div>
   );
