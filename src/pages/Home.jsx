@@ -299,7 +299,7 @@ const Home = () => {
             href="https://emkrayon.netlify.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-600 dark:text-neutral-200 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors font-medium"
+            className="text-neutral-400 dark:text-neutral-200 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors font-medium"
           >
             emkrayon
           </a>
