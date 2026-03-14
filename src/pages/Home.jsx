@@ -32,7 +32,7 @@ const Home = () => {
               transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           >
-            <div className="w-7 h-7 bg-linear-to-br from-neutral-800 to-neutral-600 dark:from-neutral-200 dark:to-neutral-400 rounded-lg flex items-center justify-center transform group-hover:rotate-180 transition-transform duration-700 shrink-0">
+            <div className="w-7 h-7 bg-gradient-to-br from-neutral-800 to-neutral-600 dark:from-neutral-200 dark:to-neutral-400 rounded-lg flex items-center justify-center transform group-hover:rotate-180 transition-transform duration-700 shrink-0">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path
                   d="M8 2L8 14M2 8L14 8"
@@ -43,9 +43,14 @@ const Home = () => {
                 />
               </svg>
             </div>
-            <h1 className="text-lg md:text-2xl font-light tracking-tight text-neutral-900 dark:text-neutral-100">
-              Dashnote
-            </h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-lg md:text-2xl font-light tracking-tight text-neutral-900 dark:text-neutral-100">
+                Dashnote
+              </h1>
+              <span className="hidden sm:inline text-xs px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700">
+                by emkrayon
+              </span>
+            </div>
           </div>
 
           <div
@@ -290,6 +295,17 @@ const Home = () => {
         }}
       >
         <p>© {new Date().getFullYear()} Dashnote. All rights reserved.</p>
+        <p className="mt-1">
+          Built by{" "}
+          <a
+            href="https://emkrayon.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors font-medium"
+          >
+            emkrayon
+          </a>
+        </p>
         <div className="flex items-center justify-center gap-4 mt-2">
           <button
             onClick={() => navigate("/terms")}
