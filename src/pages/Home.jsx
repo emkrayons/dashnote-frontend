@@ -21,7 +21,7 @@ const Home = () => {
       ></div>
 
       {/* NAVBAR - NO BORDER */}
-      <nav className="relative z-10 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm">
+      <nav className="relative z-10 bg-white/5 dark:bg-neutral-900/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-5 flex justify-between items-center">
           <div
             className="flex items-center gap-2 cursor-pointer group"
@@ -32,7 +32,7 @@ const Home = () => {
               transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           >
-            <div className="w-7 h-7 bg-linear-to-br from-neutral-800 to-neutral-800 dark:from-neutral-200 dark:to-neutral-400 rounded-lg flex items-center justify-center transform group-hover:rotate-180 transition-transform duration-700 shrink-0">
+            <div className="w-7 h-7 bg-linear-to-br from-neutral-800 to-neutral-600 dark:from-neutral-200 dark:to-neutral-400 rounded-lg flex items-center justify-center transform group-hover:rotate-180 transition-transform duration-700 shrink-0">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path
                   d="M8 2L8 14M2 8L14 8"
