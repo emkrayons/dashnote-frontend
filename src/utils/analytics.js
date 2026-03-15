@@ -69,3 +69,5 @@ export const logNoteCreated = () => {
 export const logExport = (format) => {
   logEvent('Export', format, `Export as ${format}`);
 };
+
+

@@ -20,8 +20,8 @@ const Home = () => {
         }}
       ></div>
 
-      {/* NAVBAR - MATCHING DASHBOARD */}
-      <nav className="relative z-10 border-b border-neutral-200/50 dark:border-neutral-800/50 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm">
+      {/* NAVBAR - NO BORDER */}
+      <nav className="relative z-10 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-5 flex justify-between items-center">
           <div
             className="flex items-center gap-2 cursor-pointer group"
@@ -122,7 +122,7 @@ const Home = () => {
               onClick={() => navigate("/register")}
               className="bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 px-8 py-4 rounded-full text-base font-medium hover:bg-neutral-800 dark:hover:bg-neutral-200 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
-              Start Writing – It's Free
+              Start Writing 
             </button>
 
             <button
@@ -284,9 +284,9 @@ const Home = () => {
         </div>
       </main>
 
-      {/* FOOTER */}
+      {/* FOOTER - NO BORDER */}
       <footer
-        className="relative z-10 text-center text-xs text-neutral-400 dark:text-neutral-600 py-6 border-t border-neutral-200/50 dark:border-neutral-800/50"
+        className="relative z-10 text-center text-xs text-neutral-400 dark:text-neutral-600 py-6"
         style={{
           opacity: isVisible ? 1 : 0,
           transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1) 1.2s",
