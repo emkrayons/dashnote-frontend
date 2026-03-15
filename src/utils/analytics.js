@@ -1,23 +1,24 @@
 // frontend/src/utils/analytics.js
-import ReactGA from 'react-ga4';
+// ✅ CORRECT: Use ReactGAImplementation
+import { ReactGAImplementation } from "react-ga4";
+
+// Create instance
+const GA = new ReactGAImplementation();
 
 let isInitialized = false;
 
 // Initialize Google Analytics
 export const initGA = () => {
-  // Only initialize once
   if (isInitialized) return;
   
   try {
-    // ⭐ Replace 'G-XXXXXXXXXX' with your actual Google Analytics Measurement ID
-    // For now, we'll use a test ID - replace this when you have your real ID
-    ReactGA.initialize('G-XXXXXXXXXX', {
-      testMode: true, // This prevents errors if ID is not set up yet
-    });
+    // ✅ Your Google Analytics Measurement ID
+    GA.initialize('G-9GETHQSJ9P');
+    
     isInitialized = true;
-    console.log('✅ Google Analytics initialized');
+    console.log('✅ Google Analytics initialized with ID: G-9GETHQSJ9P');
   } catch (error) {
-    console.log('⚠️ Google Analytics not configured yet');
+    console.error('❌ Google Analytics initialization failed:', error);
   }
 };
 
@@ -26,10 +27,10 @@ export const logPageView = (path) => {
   if (!isInitialized) return;
   
   try {
-    ReactGA.send({ hitType: 'pageview', page: path });
+    GA.send({ hitType: 'pageview', page: path });
     console.log('📊 Page view tracked:', path);
   } catch (error) {
-    console.log('⚠️ Page view tracking failed');
+    console.error('❌ Page view tracking failed:', error);
   }
 };
 
@@ -38,14 +39,14 @@ export const logEvent = (category, action, label = '') => {
   if (!isInitialized) return;
   
   try {
-    ReactGA.event({
+    GA.event({
       category: category,
       action: action,
       label: label,
     });
     console.log('📊 Event tracked:', category, action, label);
   } catch (error) {
-    console.log('⚠️ Event tracking failed');
+    console.error('❌ Event tracking failed:', error);
   }
 };
 
