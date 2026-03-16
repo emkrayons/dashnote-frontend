@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-[#fafaf9] dark:bg-[#0a0a0a] flex flex-col relative overflow-hidden transition-colors duration-300">
-      {/* Subtle background texture - MATCHING DASHBOARD */}
+      {/* Subtle background texture */}
       <div
         className="absolute inset-0 opacity-[0.015] dark:opacity-[0.03]"
         style={{
@@ -20,8 +20,8 @@ const Home = () => {
         }}
       ></div>
 
-      {/* NAVBAR - NO BORDER */}
-      <nav className="relative z-10 bg-white/5 dark:bg-neutral-900/50 backdrop-blur-sm">
+      {/* NAVBAR - TRANSPARENT */}
+      <nav className="relative z-10">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-5 flex justify-between items-center">
           <div
             className="flex items-center gap-2 cursor-pointer group"
@@ -32,7 +32,7 @@ const Home = () => {
               transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           >
-            <div className="w-7 h-7 bg-linear-to-br from-neutral-800 to-neutral-600 dark:from-neutral-200 dark:to-neutral-400 rounded-lg flex items-center justify-center transform group-hover:rotate-180 transition-transform duration-700 shrink-0">
+            <div className="w-7 h-7 bg-gradient-to-br from-neutral-800 to-neutral-600 dark:from-neutral-200 dark:to-neutral-400 rounded-lg flex items-center justify-center transform group-hover:rotate-180 transition-transform duration-700 shrink-0">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path
                   d="M8 2L8 14M2 8L14 8"
@@ -43,12 +43,9 @@ const Home = () => {
                 />
               </svg>
             </div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-lg md:text-2xl font-light tracking-tight text-neutral-900 dark:text-neutral-100">
-                Dashnote
-              </h1>
-            
-            </div>
+            <h1 className="text-lg md:text-2xl font-light tracking-tight text-neutral-900 dark:text-neutral-100">
+              Dashnote
+            </h1>
           </div>
 
           <div
@@ -76,7 +73,7 @@ const Home = () => {
         </div>
       </nav>
 
-      {/* HERO SECTION - MINIMAL & PROFESSIONAL */}
+      {/* HERO SECTION */}
       <main className="flex-1 flex items-center justify-center px-6 md:px-8 py-16 md:py-0">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Headline */}
@@ -122,7 +119,7 @@ const Home = () => {
               onClick={() => navigate("/register")}
               className="bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 px-8 py-4 rounded-full text-base font-medium hover:bg-neutral-800 dark:hover:bg-neutral-200 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
-              Start Writing 
+              Start Writing
             </button>
 
             <button
@@ -133,7 +130,7 @@ const Home = () => {
             </button>
           </div>
 
-          {/* Feature Pills - Minimal */}
+          {/* Feature Pills */}
           <div
             className="flex flex-wrap items-center justify-center gap-3 mb-20"
             style={{
@@ -195,7 +192,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Features Grid - MATCHING DASHBOARD STYLE */}
+          {/* Features Grid */}
           <div
             className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
             style={{
@@ -225,8 +222,7 @@ const Home = () => {
                 Fast & Lightweight
               </h3>
               <p className="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                No bloat. Just pure speed. Start writing instantly with zero
-                lag.
+                No bloat. Just pure speed. Start writing instantly with zero lag.
               </p>
             </div>
 
@@ -251,8 +247,7 @@ const Home = () => {
                 Organize with Tags
               </h3>
               <p className="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                Tag your notes, filter by category, and find what you need in
-                seconds.
+                Tag your notes, filter by category, and find what you need in seconds.
               </p>
             </div>
 
@@ -284,7 +279,7 @@ const Home = () => {
         </div>
       </main>
 
-      {/* FOOTER - NO BORDER */}
+      {/* FOOTER */}
       <footer
         className="relative z-10 text-center text-xs text-neutral-400 dark:text-neutral-600 py-6"
         style={{
