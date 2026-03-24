@@ -1,19 +1,17 @@
 import { useEffect, useState, useRef } from "react";
 
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import API from "../services/api";
 import ThemeToggle from "../components/ThemeToggle";
 import TagManager from "../components/TagManager";
 import SortDropdown from "../components/SortDropdown";
 import ExportMenu from "../components/ExportMenu";
 import ColorPicker from "../components/ColorPicker";
+import RichTextEditor from "../components/RichTextEditor"; // ⭐ NEW
 import useKeyboardShortcuts, { KeyboardShortcutsHelp } from "../utils/useKeyboardShortcuts";
 import useAutoSave, { AutoSaveIndicator } from "../utils/useAutoSave";
 import { useToast } from "../contexts/ToastContext";
 
 import { logNoteCreated, logExport } from "../utils/analytics";
-
 const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
@@ -81,80 +79,7 @@ const Dashboard = () => {
     3000
   );
 
-  // Helper function for insertMarkdown
-  const insertMarkdown = (type) => {
-    const textarea = document.getElementById("note-content");
-    if (!textarea) return;
-    
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selectedText = content.substring(start, end);
-    
-    let newText;
-    let cursorOffset = 0;
-
-    const beforeCursor = content.substring(0, start);
-    const afterCursor = content.substring(end);
-    const isStartOfLine = start === 0 || content[start - 1] === '\n';
-    const needsLineBreakBefore = !isStartOfLine && beforeCursor.trim().length > 0;
-    const needsLineBreakAfter = afterCursor.length > 0 && afterCursor[0] !== '\n';
-
-    switch(type) {
-      case 'bold':
-        newText = beforeCursor + `**${selectedText || 'bold text'}**` + afterCursor;
-        cursorOffset = selectedText ? start + selectedText.length + 4 : start + 2;
-        break;
-      case 'italic':
-        newText = beforeCursor + `*${selectedText || 'italic text'}*` + afterCursor;
-        cursorOffset = selectedText ? start + selectedText.length + 2 : start + 1;
-        break;
-      case 'strikethrough':
-        newText = beforeCursor + `~~${selectedText || 'strikethrough text'}~~` + afterCursor;
-        cursorOffset = selectedText ? start + selectedText.length + 4 : start + 2;
-        break;
-      case 'heading':
-        const headingPrefix = needsLineBreakBefore ? '\n\n' : '';
-        const headingSuffix = needsLineBreakAfter ? '\n\n' : '\n';
-        newText = beforeCursor + headingPrefix + `# ${selectedText || 'Heading'}` + headingSuffix + afterCursor;
-        cursorOffset = start + headingPrefix.length + 2;
-        break;
-      case 'bullet':
-        const bulletPrefix = needsLineBreakBefore ? '\n' : '';
-        const bulletText = selectedText || 'List item';
-        const bulletLines = bulletText.split('\n').map(line => `- ${line.trim()}`).join('\n');
-        const bulletSuffix = needsLineBreakAfter ? '\n' : '';
-        newText = beforeCursor + bulletPrefix + bulletLines + bulletSuffix + afterCursor;
-        cursorOffset = start + bulletPrefix.length + 2;
-        break;
-      case 'number':
-        const numberPrefix = needsLineBreakBefore ? '\n' : '';
-        const numberText = selectedText || 'List item';
-        const numberLines = numberText.split('\n').map((line, idx) => `${idx + 1}. ${line.trim()}`).join('\n');
-        const numberSuffix = needsLineBreakAfter ? '\n' : '';
-        newText = beforeCursor + numberPrefix + numberLines + numberSuffix + afterCursor;
-        cursorOffset = start + numberPrefix.length + 3;
-        break;
-      case 'quote':
-        const quotePrefix = needsLineBreakBefore ? '\n' : '';
-        const quoteText = selectedText || 'Quote';
-        const quoteLines = quoteText.split('\n').map(line => `> ${line.trim()}`).join('\n');
-        const quoteSuffix = needsLineBreakAfter ? '\n' : '';
-        newText = beforeCursor + quotePrefix + quoteLines + quoteSuffix + afterCursor;
-        cursorOffset = start + quotePrefix.length + 2;
-        break;
-      default:
-        return;
-    }
-
-    setContent(newText);
-
-    setTimeout(() => {
-      textarea.focus();
-      textarea.setSelectionRange(cursorOffset, cursorOffset);
-      textarea.style.height = "auto";
-      textarea.style.height = textarea.scrollHeight + "px";
-    }, 0);
-  };
+  
 
   // Keyboard shortcuts
   useKeyboardShortcuts({
@@ -174,8 +99,7 @@ const Dashboard = () => {
     onSearch: () => {
       searchInputRef.current?.focus();
     },
-    onBold: () => insertMarkdown('bold'),
-    onItalic: () => insertMarkdown('italic'),
+  
     onToggleFavorite: () => setIsFavorite(!isFavorite),
     onCancel: () => {
       if (editingId) {
@@ -392,23 +316,20 @@ const Dashboard = () => {
             </div>
 
             <div className="flex-1 overflow-y-auto p-6 md:p-8">
-              <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none text-neutral-900 dark:text-neutral-100">
-                <ReactMarkdown 
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    ul: ({node, ...props}) => <ul className="list-disc ml-6 my-4" {...props} />,
-                    ol: ({node, ...props}) => <ol className="list-decimal ml-6 my-4" {...props} />,
-                    li: ({node, ...props}) => <li className="my-1" {...props} />,
-                    blockquote: ({node, ...props}) => (<blockquote className="border-l-4 border-neutral-300 dark:border-neutral-700 pl-4 italic my-4" {...props} />),
-                    h1: ({node, ...props}) => <h1 className="text-3xl font-bold my-4" {...props} />,
-                    h2: ({node, ...props}) => <h2 className="text-2xl font-bold my-3" {...props} />,
-                    h3: ({node, ...props}) => <h3 className="text-xl font-bold my-2" {...props} />,
-                  }}
-                >
-                  {viewingNote.content}
-                </ReactMarkdown>
-              </div>
-            </div>
+  <div 
+    className="prose prose-lg prose-neutral dark:prose-invert max-w-none text-neutral-900 dark:text-neutral-100
+      [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:my-4
+      [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:my-3
+      [&_h3]:text-xl [&_h3]:font-bold [&_h3]:my-2
+      [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:my-4
+      [&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:my-4
+      [&_li]:my-1
+      [&_blockquote]:border-l-4 [&_blockquote]:border-neutral-300
+      [&_blockquote]:dark:border-neutral-700 [&_blockquote]:pl-4
+      [&_blockquote]:italic [&_blockquote]:my-4"
+    dangerouslySetInnerHTML={{ __html: viewingNote.content }}
+  />
+</div>
 
             <div className="flex items-center justify-between gap-3 p-6 md:p-8 border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/50">
               <ExportMenu note={viewingNote} />
@@ -573,48 +494,12 @@ const Dashboard = () => {
                   onColorChange={setColor}
                 />
 
-                {/* Markdown Toolbar */}
-                <div className="flex gap-2 flex-wrap pb-2 border-b border-neutral-100 dark:border-neutral-800">
-                  <button type="button" onClick={() => insertMarkdown('bold')} className="px-2.5 py-1.5 rounded-lg text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200 flex items-center gap-1.5" title="Bold">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
-                    <span className="hidden sm:inline">Bold</span>
-                  </button>
-                  <button type="button" onClick={() => insertMarkdown('italic')} className="px-2.5 py-1.5 rounded-lg text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200 flex items-center gap-1.5" title="Italic">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 4h4M14 20h4M14 4 10 20"/></svg>
-                    <span className="hidden sm:inline">Italic</span>
-                  </button>
-                  <button type="button" onClick={() => insertMarkdown('strikethrough')} className="px-2.5 py-1.5 rounded-lg text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200 flex items-center gap-1.5" title="Strikethrough">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12h18M8 5h8M9 19h6"/></svg>
-                    <span className="hidden sm:inline">Strike</span>
-                  </button>
-                  <div className="w-px h-6 bg-neutral-200 dark:bg-neutral-700"></div>
-                  <button type="button" onClick={() => insertMarkdown('heading')} className="px-2.5 py-1.5 rounded-lg text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200" title="Heading">H1</button>
-                  <button type="button" onClick={() => insertMarkdown('bullet')} className="px-2.5 py-1.5 rounded-lg text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200 flex items-center gap-1.5" title="Bullet List">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/></svg>
-                    <span className="hidden sm:inline">List</span>
-                  </button>
-                  <button type="button" onClick={() => insertMarkdown('number')} className="px-2.5 py-1.5 rounded-lg text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200 flex items-center gap-1.5" title="Numbered List">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h.01M3 8h.01M3 12h.01M3 16h.01M3 20h.01M7 4h14M7 8h14M7 12h14M7 16h14M7 20h14"/></svg>
-                    <span className="hidden sm:inline">1,2,3</span>
-                  </button>
-                  <button type="button" onClick={() => insertMarkdown('quote')} className="px-2.5 py-1.5 rounded-lg text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200 flex items-center gap-1.5" title="Quote">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                    <span className="hidden sm:inline">Quote</span>
-                  </button>
-                </div>
-
-                <textarea
-                  id="note-content"
-                  className="w-full border-0 p-0 rounded-lg resize-none overflow-hidden focus:outline-none bg-transparent text-neutral-700 dark:text-neutral-300 leading-relaxed placeholder:text-neutral-300 dark:placeholder:text-neutral-700 min-h-45"
-                  placeholder="Start writing..."
-                  value={content}
-                  onChange={(e) => {
-                    setContent(e.target.value);
-                    e.target.style.height = "auto";
-                    e.target.style.height = e.target.scrollHeight + "px";
-                  }}
-                  required
-                />
+               {/* Rich Text Editor */}
+<RichTextEditor
+  content={content}
+  onChange={setContent}
+  placeholder="Start writing..."
+/>
 
                 <div className="flex gap-3 pt-3">
                   <button
@@ -771,19 +656,12 @@ const Dashboard = () => {
                       )}
 
                       <div 
-                        className="prose prose-sm prose-neutral dark:prose-invert max-w-none text-neutral-600 dark:text-neutral-400 mb-3 line-clamp-2 cursor-pointer"
-                        onClick={() => setViewingNote(note)}
-                      >
-                        <ReactMarkdown 
-                          remarkPlugins={[remarkGfm]}
-                          components={{
-                            ul: ({node, ...props}) => <ul className="list-disc list-inside" {...props} />,
-                            ol: ({node, ...props}) => <ol className="list-decimal list-inside" {...props} />,
-                          }}
-                        >
-                          {note.content}
-                        </ReactMarkdown>
-                      </div>
+  className="prose prose-sm prose-neutral dark:prose-invert max-w-none text-neutral-600 dark:text-neutral-400 mb-3 line-clamp-2 cursor-pointer"
+  onClick={() => setViewingNote(note)}
+  dangerouslySetInnerHTML={{ 
+    __html: note.content.substring(0, 200) + (note.content.length > 200 ? '...' : '')
+  }}
+/>
 
                       {note.content.split('\n').length > 2 && (
                         <button

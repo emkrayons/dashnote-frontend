@@ -11,6 +11,11 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
+    "@tiptap/extension-placeholder": "^3.20.4",
+    "@tiptap/extension-text-align": "^3.20.4",
+    "@tiptap/extension-underline": "^3.20.4",
+    "@tiptap/react": "^3.20.4",
+    "@tiptap/starter-kit": "^3.20.4",
     "axios": "^1.13.2",
     "jspdf": "^4.1.0",
     "react": "^19.2.0",
