@@ -11,6 +11,8 @@ import useKeyboardShortcuts, { KeyboardShortcutsHelp } from "../utils/useKeyboar
 import useAutoSave, { AutoSaveIndicator } from "../utils/useAutoSave";
 import { useToast } from "../contexts/ToastContext";
 
+import ProductTour from "../components/ProductTour";
+
 import { logNoteCreated, logExport } from "../utils/analytics";
 const logout = () => {
   localStorage.removeItem("token");
@@ -431,12 +433,12 @@ const Dashboard = () => {
             }}
           >
             {/* Search Bar */}
-            <div className="relative">
+            <div className="relative" data-tour="search-bar">
               <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 dark:text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
-              <input
-                ref={searchInputRef}
+              <input ref={searchInputRef}
+               
                 type="text"
                 placeholder="Search in titles and content..."
                 value={search}
@@ -459,6 +461,7 @@ const Dashboard = () => {
                     onClick={() => setIsFavorite(!isFavorite)}
                     className="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                     title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                    data-tour="favorite-button"
                   >
                     <svg 
                       className={`w-6 h-6 ${isFavorite ? 'text-yellow-500 fill-current' : 'text-neutral-400'}`}
@@ -482,17 +485,21 @@ const Dashboard = () => {
                   required
                 />
 
+                <div data-tour="tag-manager">
                 <TagManager
                   selectedTags={tags}
                   availableTags={availableTags}
                   onTagsChange={setTags}
                   onCreateTag={(newTag) => setAvailableTags([...availableTags, newTag])}
                 />
+                </div>
 
+                <div data-tour="color-picker">
                 <ColorPicker
                   selectedColor={color}
                   onColorChange={setColor}
                 />
+                </div>
 
                {/* Rich Text Editor */}
 <RichTextEditor
@@ -588,7 +595,9 @@ const Dashboard = () => {
                 </button>
 
                 <SortDropdown currentSort={sortBy} onSortChange={setSortBy} />
-                <ExportMenu notes={filteredNotes} />
+                  <div data-tour="export-menu"> 
+                    <ExportMenu notes={filteredNotes} />
+                  </div>
               </div>
             </div>
 
@@ -725,6 +734,7 @@ const Dashboard = () => {
         </div>
       </div>
 
+              <ProductTour />
       <KeyboardShortcutsHelp 
         isOpen={showShortcutsHelp} 
         onClose={() => setShowShortcutsHelp(false)} 
