@@ -1,12 +1,140 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-   
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <title>Dashnote</title>
+    <!-- SEO -->
+    <meta name="google-site-verification" content="6_-omE3OgsDBzmeeKnvbCUGgMoz13U0UhQoQmreaGHg" />
+    
+    <!-- PRIMARY SEO TAGS -->
+    <title>Dashnote - Free Note-Taking App with Rich Text Editor & Tags</title>
+    <meta name="description" content="Free, fast, and secure note-taking app. Rich text editor (no markdown!), organize with tags and colors, export to PDF, dark mode. 100% free forever. Perfect for students, developers, and productivity." />
+    <meta name="keywords" content="note taking app, free notes app, note app, rich text editor, organize notes, tags, productivity app, note organizer, evernote alternative, notion alternative, simple notes, markdown notes, free productivity app, note app with tags" />
+    
+    <!-- AUTHOR & ROBOTS -->
+    <meta name="author" content="emkrayon" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href="https://dashnote.vercel.app/" />
+    
+    <!-- OPEN GRAPH / FACEBOOK -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dashnote.vercel.app/" />
+    <meta property="og:site_name" content="Dashnote" />
+    <meta property="og:title" content="Dashnote - Free Note-Taking App" />
+    <meta property="og:description" content="Fast, secure note-taking app with rich text editor, tags, and colors. 100% free forever. No subscription, no limits." />
+    <meta property="og:image" content="https://dashnote.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    
+    <!-- TWITTER -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://dashnote.vercel.app/" />
+    <meta property="twitter:title" content="Dashnote - Free Note-Taking App" />
+    <meta property="twitter:description" content="Fast, secure note-taking app with rich text editor, tags, and colors. 100% free forever." />
+    <meta property="twitter:image" content="https://dashnote.vercel.app/og-image.png" />
+    <meta property="twitter:creator" content="@emkrayon" />
+    
+    <!-- PWA / MOBILE -->
+    <meta name="theme-color" content="#171717" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Dashnote" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    
+    <!-- STRUCTURED DATA FOR GOOGLE (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Dashnote",
+      "alternateName": "Dash Note",
+      "description": "Free, fast, and secure note-taking app with rich text editor, tags, color coding, search, and PDF export. Perfect for students, developers, and productivity enthusiasts.",
+      "url": "https://dashnote.vercel.app",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript. Modern browser recommended.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "1"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "emkrayon",
+        "url": "https://emkrayon.netlify.app/"
+      },
+      "creator": {
+        "@type": "Person",
+        "name": "emkrayon"
+      },
+      "featureList": [
+        "Rich text editor without markdown",
+        "Organize notes with tags",
+        "Color coding for visual organization",
+        "Star favorite notes",
+        "Instant search across all notes",
+        "Export to PDF and TXT",
+        "Dark mode support",
+        "Auto-save every 3 seconds",
+        "100% free with no limitations"
+      ],
+      "screenshot": [
+        "https://dashnote.vercel.app/screenshots/dashboard.png",
+        "https://dashnote.vercel.app/screenshots/editor.png"
+      ]
+    }
+    </script>
+    
+    <!-- ADDITIONAL STRUCTURED DATA: FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Dashnote really free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Dashnote is 100% free with no subscription, no premium tier, and no feature limits. We believe note-taking should be accessible to everyone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to learn markdown?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No! Dashnote uses a rich text editor similar to Microsoft Word. Just click Bold, Italic, or other formatting buttons. No markdown syntax required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I export my notes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Export individual notes or all notes at once to PDF or TXT format. Your notes, your format, your way."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data secure?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Your notes are encrypted, stored securely, and we never sell your data. We use industry-standard security practices and rate limiting to prevent abuse."
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
