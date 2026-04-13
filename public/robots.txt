@@ -1,0 +1,8 @@
+```
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /reset-password
+
+Sitemap: https://dashnote.vercel.app/sitemap.xml
+```
